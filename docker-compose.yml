@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+
+  wilpsocialmedia.message:
+    image: ${DOCKER_REGISTRY-}wilpsocialmediamessage
+    build:
+      context: .
+      dockerfile: WilpSocialMedia.Message/Dockerfile
+    depends_on:
+      - sql.messagedata
+ 
+  sql.messagedata:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - SA_PASSWORD=Pass@word
+      - ACCEPT_EULA=Y
+    ports:
+      - "5437:1433"
